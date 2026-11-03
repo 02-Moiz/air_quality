@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AeroScope · Global Air Quality Dashboard</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">🌍</div>
+      <div>
+        <h1>AeroScope</h1>
+        <p>Global Air Quality Intelligence</p>
+      </div>
+    </div>
+    <div class="topbar-meta" id="topbarMeta"></div>
+  </header>
+
+  <main class="container">
+    <section class="card controls" id="controls">
+      <div class="control">
+        <label for="countrySelect">Country</label>
+        <select id="countrySelect"></select>
+      </div>
+      <div class="control">
+        <label for="statusSelect">Status</label>
+        <select id="statusSelect"></select>
+      </div>
+      <div class="control">
+        <label for="fromDate">From</label>
+        <input type="date" id="fromDate" />
+      </div>
+      <div class="control">
+        <label for="toDate">To</label>
+        <input type="date" id="toDate" />
+      </div>
+      <button id="resetFilters" class="btn">Reset</button>
+    </section>
+
+    <section class="kpi-grid" id="kpiGrid">
+      <div class="kpi accent">
+        <div class="kpi-label">Average AQI</div>
+        <div class="kpi-value" id="kpiAvg">–</div>
+        <div class="kpi-sub" id="kpiAvgSub">–</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Countries</div>
+        <div class="kpi-value" id="kpiCountries">–</div>
+        <div class="kpi-sub">with data in view</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Peak AQI</div>
+        <div class="kpi-value" id="kpiPeak">–</div>
+        <div class="kpi-sub" id="kpiPeakSub">–</div>
+      </div>
+      <div class="kpi warn">
+        <div class="kpi-label">Unhealthy+</div>
+        <div class="kpi-value" id="kpiUnhealthy">–</div>
+        <div class="kpi-sub" id="kpiUnhealthySub">–</div>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="card-header">
+        <h2>Daily Average AQI</h2>
+        <span class="card-sub" id="dailySubtitle"></span>
+      </div>
+      <div class="chart-box">
+        <canvas id="dailyChart"></canvas>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <h2>Status Distribution</h2>
+        </div>
+        <div class="chart-box">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2>Top Polluted Countries</h2>
+          <span class="card-sub">by average AQI</span>
+        </div>
+        <div class="chart-box">
+          <canvas id="topChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="card chart-card" id="trendCard">
+      <div class="card-header">
+        <h2 id="trendTitle">Country AQI Trend</h2>
+        <span class="card-sub" id="trendSubtitle"></span>
+      </div>
+      <div class="chart-box">
+        <canvas id="countryChart"></canvas>
+      </div>
+    </section>
+
+    <section class="card ai-card">
+      <div class="card-header">
+        <h2>🤖 AI Air Quality Insights</h2>
+        <span class="card-sub">Powered by Gemini</span>
+      </div>
+      <p class="ai-desc">
+        Ask a question or generate an AI summary based on the currently filtered data.
+      </p>
+      <div class="ai-controls">
+        <input id="aiPrompt" type="text" placeholder="e.g. Which countries have the worst air quality?" />
+        <button id="aiGenerate" class="btn">Generate</button>
+      </div>
+      <div class="ai-presets" id="aiPresets">
+        <button class="chip" data-prompt="Summarize the current air quality situation in a few sentences.">Summarize situation</button>
+        <button class="chip" data-prompt="Which countries are most polluted right now and what should they do?">Top pollution risks</button>
+        <button class="chip" data-prompt="Are there any hazardous or very unhealthy days in the data? List them.">Hazard alerts</button>
+      </div>
+      <div id="aiOutput" class="ai-output">Ask or generate an insight to see AI analysis.</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>AeroScope · Source data: <code>B:\open code\data_date.csv</code> · AQI categories: Good, Moderate, Unhealthy, Unhealthy for Sensitive Groups, Very Unhealthy, Hazardous</p>
+  </footer>
+
+  <script src="chart.umd.min.js"></script>
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
